@@ -13,14 +13,20 @@ public class DynamicTerrain : MonoBehaviour
     public Vector2Int spawner;
     public float spawnAmount = 0.01f;
     
-
-    private TerrainData bottomLayerData;
-    private Terrain currentLayer;
-    private TerrainData currentLayerData;
-    private float[,] updatedHeightMap;
-    private MaterialProperties[,] materialMap;
-    private MaterialProperties[,] updatedMaterialMap;
-    private float heightScale = 600f;
+    [HideInInspector]
+    public TerrainData bottomLayerData;
+    [HideInInspector]
+    public Terrain currentLayer;
+    [HideInInspector]
+    public TerrainData currentLayerData;
+    [HideInInspector]
+    public float[,] updatedHeightMap;
+    [HideInInspector]
+    public MaterialProperties[,] materialMap;
+    [HideInInspector]
+    public MaterialProperties[,] updatedMaterialMap;
+    [HideInInspector]
+    public float heightScale = 600f;
 
     // Start is called before the first frame update
     void Start()

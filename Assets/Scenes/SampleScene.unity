@@ -220,6 +220,10 @@ MonoBehaviour:
   enableSpawner: 0
   spawner: {x: 3, y: 45}
   spawnAmount: 0.2
+  bottomLayerData: {fileID: 0}
+  currentLayer: {fileID: 0}
+  currentLayerData: {fileID: 0}
+  heightScale: 600
 --- !u!1 &670855811
 GameObject:
   m_ObjectHideFlags: 0
@@ -236,7 +240,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &670855812
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -249,6 +253,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49c00d13640a33148a3434aeb30446d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lowerLevelTerrain: {fileID: 0}
 --- !u!4 &670855813
 Transform:
   m_ObjectHideFlags: 0
@@ -611,3 +616,7 @@ MonoBehaviour:
   enableSpawner: 0
   spawner: {x: 60, y: 60}
   spawnAmount: 0.01
+  bottomLayerData: {fileID: 0}
+  currentLayer: {fileID: 0}
+  currentLayerData: {fileID: 0}
+  heightScale: 600
