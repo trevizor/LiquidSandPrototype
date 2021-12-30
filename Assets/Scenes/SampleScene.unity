@@ -170,13 +170,13 @@ Terrain:
   m_DetailObjectDistance: 250
   m_DetailObjectDensity: 1
   m_HeightmapPixelError: 1
-  m_SplatMapDistance: 2371
+  m_SplatMapDistance: 9011
   m_HeightmapMaximumLOD: 0
   m_ShadowCastingMode: 0
   m_DrawHeightmap: 1
   m_DrawInstanced: 0
   m_DrawTreesAndFoliage: 0
-  m_ReflectionProbeUsage: 1
+  m_ReflectionProbeUsage: 2
   m_MaterialTemplate: {fileID: 2100000, guid: dc40a55bdce8ab74d826318bc48b62e7, type: 2}
   m_BakeLightProbesForTrees: 0
   m_PreserveTreePrototypeLayers: 0
@@ -215,10 +215,54 @@ MonoBehaviour:
   bottomLayer: {fileID: 1190125482}
   percentageDrag: 0.03
   minimumDrop: 0
+  minimumAmountToCalculate: 0.001
   heightPenalty: -0.0005
   enableSpawner: 0
   spawner: {x: 3, y: 45}
   spawnAmount: 0.2
+--- !u!1 &670855811
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 670855813}
+  - component: {fileID: 670855812}
+  m_Layer: 0
+  m_Name: DynamicTerrainManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &670855812
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 670855811}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49c00d13640a33148a3434aeb30446d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &670855813
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 670855811}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -479.01172, y: -3849.3286, z: -701.1384}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -387,8 +431,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: -0.23880169, y: 0.31497344, z: -0.077689484, w: -0.9152759}
-  m_LocalPosition: {x: 2751.6165, y: 817.8727, z: 86.45947}
+  m_LocalRotation: {x: 0.16317756, y: -0.84036887, z: 0.37996778, w: 0.35039666}
+  m_LocalPosition: {x: 2940.1165, y: 1688.2607, z: 2723.6772}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -562,6 +606,7 @@ MonoBehaviour:
   bottomLayer: {fileID: 1055694707}
   percentageDrag: 0.01
   minimumDrop: 0.06
+  minimumAmountToCalculate: 0.01
   heightPenalty: 0
   enableSpawner: 0
   spawner: {x: 60, y: 60}

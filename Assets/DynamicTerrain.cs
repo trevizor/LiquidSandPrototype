@@ -7,11 +7,12 @@ public class DynamicTerrain : MonoBehaviour
     public Terrain bottomLayer;
     public float percentageDrag = 0.5f; //sand 0.01f; water 0.03f;
     public float minimumDrop = 0f; //sand 0.06f;  water 0.0f;
+    public float minimumAmountToCalculate = 0f;
     public float heightPenalty = 0.0f;
     public bool enableSpawner = false;
     public Vector2Int spawner;
     public float spawnAmount = 0.01f;
-
+    
 
     private TerrainData bottomLayerData;
     private Terrain currentLayer;
@@ -19,7 +20,6 @@ public class DynamicTerrain : MonoBehaviour
     private float[,] updatedHeightMap;
     private MaterialProperties[,] materialMap;
     private MaterialProperties[,] updatedMaterialMap;
-    private int count = 0;
     private float heightScale = 600f;
 
     // Start is called before the first frame update
@@ -42,7 +42,11 @@ public class DynamicTerrain : MonoBehaviour
     void Update()
     {
         if (enableSpawner) SpawnAtOrigin();
-        CalculateMisplacement();        
+        CalculateMisplacement();
+    }
+
+    void LateUpdate() {
+        currentLayerData.SetHeights(0, 0, updatedHeightMap);
     }
 
     public void CalculateMisplacement()
@@ -54,29 +58,32 @@ public class DynamicTerrain : MonoBehaviour
             for (int y = 0; y < bottomLayerData.heightmapResolution; y++)
             {
                 materialMap[x, y].height = (bottomLayerData.GetHeight(x, y) / heightScale) + heightPenalty;
-                List<Vector2Int> neightbours = GetNeighbours(x, y);
-                List<Vector2Int> lowerneightbours = new List<Vector2Int>();
-                float diff = materialMap[x, y].amount * percentageDrag;
-                float pointHeight = materialMap[x, y].height + materialMap[x, y].amount;
-                foreach (Vector2Int n in neightbours)
+                if(materialMap[x,y].amount > minimumAmountToCalculate) //only needs to do this calculation if there's a reasonable amount of stuff in the title
                 {
-                    float nHeight = materialMap[n.x, n.y].height + materialMap[n.x, n.y].amount;
-                    if (( nHeight + diff) < (pointHeight) &&
-                        Mathf.Abs(nHeight - pointHeight) > minimumDrop)
+                    List<Vector2Int> neightbours = GetNeighbours(x, y);
+                    List<Vector2Int> lowerneightbours = new List<Vector2Int>();
+                    float diff = materialMap[x, y].amount * percentageDrag;
+                    float pointHeight = materialMap[x, y].height + materialMap[x, y].amount;
+                    foreach (Vector2Int n in neightbours)
                     {
-                        lowerneightbours.Add(n);
+                        float nHeight = materialMap[n.x, n.y].height + materialMap[n.x, n.y].amount;
+                        if ((nHeight + diff) < (pointHeight) &&
+                            Mathf.Abs(nHeight - pointHeight) > minimumDrop)
+                        {
+                            lowerneightbours.Add(n);
+                        }
+                    };
+                    foreach (Vector2Int n in lowerneightbours)
+                    {
+                        updatedMaterialMap[x, y].amount = materialMap[x, y].amount - diff;
+                        updatedMaterialMap[n.x, n.y].amount = materialMap[n.x, n.y].amount + diff;
                     }
-                };
-                foreach (Vector2Int n in lowerneightbours) {
-                    updatedMaterialMap[x, y].amount = materialMap[x, y].amount - diff;
-                    updatedMaterialMap[n.x, n.y].amount = materialMap[n.x, n.y].amount + diff;
                 }
 
                 updatedHeightMap[y, x] = materialMap[x, y].amount + materialMap[x, y].height;
             }
         }
         
-        currentLayerData.SetHeights(0, 0, updatedHeightMap);
     }
 
     public void SpawnAtOrigin ()
